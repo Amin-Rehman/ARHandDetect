@@ -62,6 +62,12 @@ class ViewController: UIViewController, ARSKViewDelegate {
         labelNode.fontColor = SKColor.green
         labelNode.horizontalAlignmentMode = .center
         labelNode.verticalAlignmentMode = .center
+        
+        let rotateAction = SKAction.rotate(toAngle: .pi / 4, duration: 1)
+        let rotateBackAction = SKAction.rotate(toAngle: -(.pi / 4), duration: 1)
+        let repeatRotateForever = SKAction.repeatForever(SKAction.sequence([rotateAction, rotateBackAction]))
+        labelNode.run(repeatRotateForever)
+        
         taskIterator = taskIterator + 1
 
         return labelNode
