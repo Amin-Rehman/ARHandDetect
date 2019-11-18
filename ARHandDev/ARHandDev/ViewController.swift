@@ -13,8 +13,13 @@ import ARKit
 class ViewController: UIViewController, ARSKViewDelegate {
     
     @IBOutlet var sceneView: ARSKView!
-    
+    var allTasks: [String]?
+    var taskIterator = 0
+
     override func viewDidLoad() {
+        // Some mock tasks
+        self.allTasks = ["Tomatoes", "Apples"]
+
         super.viewDidLoad()
         
         // Set the view's delegate
@@ -25,8 +30,8 @@ class ViewController: UIViewController, ARSKViewDelegate {
         sceneView.showsNodeCount = true
         
         // Load the SKScene from 'Scene.sks'
-        if let scene = SKScene(fileNamed: "ToDoScene") {
-            sceneView.presentScene(scene)
+        if let todoScene = SKScene(fileNamed: "ToDoScene") {
+            sceneView.presentScene(todoScene)
         }
     }
     
@@ -52,12 +57,14 @@ class ViewController: UIViewController, ARSKViewDelegate {
     func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
         // Create and configure a node for the anchor added to the view's session.
         let labelNode = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
-        labelNode.text = "Do the thing"
+        labelNode.text = allTasks![taskIterator]
         labelNode.fontSize = 45
         labelNode.fontColor = SKColor.green
         labelNode.horizontalAlignmentMode = .center
         labelNode.verticalAlignmentMode = .center
-        return labelNode;
+        taskIterator = taskIterator + 1
+
+        return labelNode
     }
     
     func session(_ session: ARSession, didFailWithError error: Error) {
