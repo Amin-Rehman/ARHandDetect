@@ -18,7 +18,7 @@ class ViewController: UIViewController, ARSKViewDelegate {
 
     override func viewDidLoad() {
         // Some mock tasks
-        self.allTasks = ["Tomatoes", "Apples"]
+        self.allTasks = ["Tomatoes", "Apples", "Cheese"]
 
         super.viewDidLoad()
         
