@@ -17,7 +17,18 @@
 		90CEB6032382ACB200249C82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90CEB6012382ACB200249C82 /* LaunchScreen.storyboard */; };
 		EBBC28552383FF6500D3E5E4 /* ColourMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBC28542383FF6500D3E5E4 /* ColourMaker.swift */; };
 		EBBC28592384281C00D3E5E4 /* CoordinateMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBC28582384281C00D3E5E4 /* CoordinateMaker.swift */; };
+		EBBC28612384295700D3E5E4 /* ARHandDevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBC28602384295700D3E5E4 /* ARHandDevTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EBBC28632384295700D3E5E4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 90CEB5E92382ACAE00249C82 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 90CEB5F02382ACAE00249C82;
+			remoteInfo = ARHandDev;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		90B4313D238424EB00FCD5F6 /* HandModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = HandModel.mlmodel; sourceTree = "<group>"; };
@@ -32,10 +43,20 @@
 		90CEB6042382ACB200249C82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EBBC28542383FF6500D3E5E4 /* ColourMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourMaker.swift; sourceTree = "<group>"; };
 		EBBC28582384281C00D3E5E4 /* CoordinateMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateMaker.swift; sourceTree = "<group>"; };
+		EBBC285E2384295700D3E5E4 /* ARHandDevTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ARHandDevTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBBC28602384295700D3E5E4 /* ARHandDevTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARHandDevTests.swift; sourceTree = "<group>"; };
+		EBBC28622384295700D3E5E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		90CEB5EE2382ACAE00249C82 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EBBC285B2384295700D3E5E4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -57,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				90CEB5F32382ACAE00249C82 /* ARHandDev */,
+				EBBC285F2384295700D3E5E4 /* ARHandDevTests */,
 				90CEB5F22382ACAE00249C82 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -65,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				90CEB5F12382ACAE00249C82 /* ARHandDev.app */,
+				EBBC285E2384295700D3E5E4 /* ARHandDevTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,6 +118,15 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		EBBC285F2384295700D3E5E4 /* ARHandDevTests */ = {
+			isa = PBXGroup;
+			children = (
+				EBBC28602384295700D3E5E4 /* ARHandDevTests.swift */,
+				EBBC28622384295700D3E5E4 /* Info.plist */,
+			);
+			path = ARHandDevTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -115,18 +147,40 @@
 			productReference = 90CEB5F12382ACAE00249C82 /* ARHandDev.app */;
 			productType = "com.apple.product-type.application";
 		};
+		EBBC285D2384295700D3E5E4 /* ARHandDevTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EBBC28652384295700D3E5E4 /* Build configuration list for PBXNativeTarget "ARHandDevTests" */;
+			buildPhases = (
+				EBBC285A2384295700D3E5E4 /* Sources */,
+				EBBC285B2384295700D3E5E4 /* Frameworks */,
+				EBBC285C2384295700D3E5E4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EBBC28642384295700D3E5E4 /* PBXTargetDependency */,
+			);
+			name = ARHandDevTests;
+			productName = ARHandDevTests;
+			productReference = EBBC285E2384295700D3E5E4 /* ARHandDevTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		90CEB5E92382ACAE00249C82 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1120;
+				LastSwiftUpdateCheck = 1110;
 				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = Stephanie;
 				TargetAttributes = {
 					90CEB5F02382ACAE00249C82 = {
 						CreatedOnToolsVersion = 11.2.1;
+					};
+					EBBC285D2384295700D3E5E4 = {
+						CreatedOnToolsVersion = 11.1;
+						TestTargetID = 90CEB5F02382ACAE00249C82;
 					};
 				};
 			};
@@ -144,6 +198,7 @@
 			projectRoot = "";
 			targets = (
 				90CEB5F02382ACAE00249C82 /* ARHandDev */,
+				EBBC285D2384295700D3E5E4 /* ARHandDevTests */,
 			);
 		};
 /* End PBXProject section */
@@ -156,6 +211,13 @@
 				90CEB6032382ACB200249C82 /* LaunchScreen.storyboard in Resources */,
 				90CEB6002382ACB200249C82 /* Assets.xcassets in Resources */,
 				90CEB5FE2382ACAE00249C82 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EBBC285C2384295700D3E5E4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,7 +238,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EBBC285A2384295700D3E5E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBBC28612384295700D3E5E4 /* ARHandDevTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EBBC28642384295700D3E5E4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 90CEB5F02382ACAE00249C82 /* ARHandDev */;
+			targetProxy = EBBC28632384295700D3E5E4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		90CEB5FC2382ACAE00249C82 /* Main.storyboard */ = {
@@ -348,6 +426,48 @@
 			};
 			name = Release;
 		};
+		EBBC28662384295700D3E5E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 68QQNWZDTF;
+				INFOPLIST_FILE = ARHandDevTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = yaberwock.ARHandDevTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARHandDev.app/ARHandDev";
+			};
+			name = Debug;
+		};
+		EBBC28672384295700D3E5E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 68QQNWZDTF;
+				INFOPLIST_FILE = ARHandDevTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = yaberwock.ARHandDevTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARHandDev.app/ARHandDev";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -365,6 +485,15 @@
 			buildConfigurations = (
 				90CEB6082382ACB200249C82 /* Debug */,
 				90CEB6092382ACB200249C82 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EBBC28652384295700D3E5E4 /* Build configuration list for PBXNativeTarget "ARHandDevTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EBBC28662384295700D3E5E4 /* Debug */,
+				EBBC28672384295700D3E5E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

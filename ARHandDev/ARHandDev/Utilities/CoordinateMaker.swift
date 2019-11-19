@@ -14,5 +14,6 @@ struct Coordinates {
 }
 
 struct CoordinateMaker {
+    
 
 }
