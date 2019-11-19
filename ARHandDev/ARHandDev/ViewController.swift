@@ -9,23 +9,52 @@
 import UIKit
 import SceneKit
 import ARKit
+import CoreML
+import Vision
 
-class ViewController: UIViewController, ARSCNViewDelegate {
+
+class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
+    
     @IBOutlet var sceneView: ARSCNView!
     
+    // MARK: - Variables
     var allTasks: [String]?
     var taskIterator = 0
+    var currentBuffer: CVPixelBuffer?
+    var previewView = UIImageView()
+    
+    // MARK: - Lifecycle
+    override public func loadView() {
+        super.loadView()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+        view = sceneView
+
+        // Create a session configuration
+        let configuration = ARWorldTrackingConfiguration()
+
+
+        sceneView.autoenablesDefaultLighting = true
+        // Disabled because of random crash
+        configuration.environmentTexturing = .none
+
+        // We want to receive the frames from the video
+        sceneView.session.delegate = self
+
+        // Run the session with the configuration
+        sceneView.session.run(configuration)
+
+        // The delegate is used to receive ARAnchors when they are detected.
+        sceneView.delegate = self
+
+        view.addSubview(previewView)
+
+        previewView.translatesAutoresizingMaskIntoConstraints = false
+        previewView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        previewView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
         // Some mock tasks
         self.allTasks = ["Tomatoes", "Apples", "Cheese"]
 
-        
-        // Set the view's delegate
-        sceneView.delegate = self
-        
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
     
@@ -44,6 +73,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             sceneView.scene.rootNode.addChildNode(node)
             sceneView.autoenablesDefaultLighting = true
         }
+
+
+        // Add touchNode
+//         sceneView.scene.rootNode.addChildNode(touchNode)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,21 +96,77 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.pause()
     }
     
-        // MARK: - ARSCNViewDelegate
-    
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user
-        
+
+    // MARK: - ARSessionDelegate
+    public func session(_: ARSession, didUpdate frame: ARFrame) {
+        // We return early if currentBuffer is not nil or the tracking state of camera is not normal
+        guard currentBuffer == nil, case .normal = frame.camera.trackingState else {
+            return
+        }
+
+        // Retain the image buffer for Vision processing.
+        currentBuffer = frame.capturedImage
+
+        startDetection()
     }
     
     func sessionWasInterrupted(_ session: ARSession) {
         // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
     }
     
     func sessionInterruptionEnded(_ session: ARSession) {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
-        
+    }
+    
+    // MARK: - Private functions
+    let handDetector = HandDetector()
+
+    private func startDetection() {
+        // To avoid force unwrap in VNImageRequestHandler
+        guard let buffer = currentBuffer else { return }
+
+        handDetector.performDetection(inputBuffer: buffer) { outputBuffer, _ in
+            // Here we are on a background thread
+            var previewImage: UIImage?
+            var normalizedFingerTip: CGPoint?
+
+            defer {
+                DispatchQueue.main.async {
+                    self.previewView.image = previewImage
+
+                    // Release currentBuffer when finished to allow processing next frame
+                    self.currentBuffer = nil
+
+//                    self.touchNode.isHidden = true
+                    
+                    guard let tipPoint = normalizedFingerTip else {
+                        return
+                    }
+
+                    // We use a coreVideo function to get the image coordinate from the normalized point
+                    let imageFingerPoint = VNImagePointForNormalizedPoint(tipPoint, Int(self.view.bounds.size.width), Int(self.view.bounds.size.height))
+
+                    // And here again we need to hitTest to translate from 2D coordinates to 3D coordinates
+                    let hitTestResults = self.sceneView.hitTest(imageFingerPoint, types: .existingPlaneUsingExtent)
+                    guard let hitTestResult = hitTestResults.first else { return }
+
+                    // We position our touchNode slighlty above the plane (1cm).
+//                    self.touchNode.simdTransform = hitTestResult.worldTransform
+//                    self.touchNode.position.y += 0.01
+//                    self.touchNode.isHidden = false
+                }
+            }
+
+            guard let outBuffer = outputBuffer else {
+                return
+            }
+
+            // Create UIImage from CVPixelBuffer
+            previewImage = UIImage(ciImage: CIImage(cvPixelBuffer: outBuffer))
+
+//            normalizedFingerTip = outBuffer.searchTopPoint()
+
+        }
     }
 }
 
