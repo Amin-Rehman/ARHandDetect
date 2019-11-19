@@ -22,6 +22,7 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
     var taskIterator = 0
     var currentBuffer: CVPixelBuffer?
     var previewView = UIImageView()
+    let touchNode = TouchNode()
     
     // MARK: - Lifecycle
     override public func loadView() {
@@ -53,7 +54,7 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
         previewView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
         // Some mock tasks
-        self.allTasks = ["Tomatoes", "Apples", "Cheese"]
+        self.allTasks = ["Tomatoes"]
 
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
@@ -75,8 +76,8 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
         }
 
 
-        // Add touchNode
-//         sceneView.scene.rootNode.addChildNode(touchNode)
+         // Add touchNode
+         sceneView.scene.rootNode.addChildNode(touchNode)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -106,6 +107,7 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
 
         // Retain the image buffer for Vision processing.
         currentBuffer = frame.capturedImage
+        
 
         startDetection()
     }
@@ -137,23 +139,38 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
                     // Release currentBuffer when finished to allow processing next frame
                     self.currentBuffer = nil
 
-//                    self.touchNode.isHidden = true
+                    self.touchNode.isHidden = true
                     
                     guard let tipPoint = normalizedFingerTip else {
                         return
                     }
+                    
 
                     // We use a coreVideo function to get the image coordinate from the normalized point
                     let imageFingerPoint = VNImagePointForNormalizedPoint(tipPoint, Int(self.view.bounds.size.width), Int(self.view.bounds.size.height))
+                    
+//                    print(" imageFingerPoint x: \(imageFingerPoint.x) y: \(imageFingerPoint.y)")
+                    
 
                     // And here again we need to hitTest to translate from 2D coordinates to 3D coordinates
-                    let hitTestResults = self.sceneView.hitTest(imageFingerPoint, types: .existingPlaneUsingExtent)
+//                    let hitTestResults = self.sceneView.hitTest(imageFingerPoint, types: .existingPlaneUsingExtent)
+//                    guard let hitTestResult = hitTestResults.first else { return }
+
+                    
+                    let hitTestResults = self.sceneView.hitTest(imageFingerPoint, options: nil)
                     guard let hitTestResult = hitTestResults.first else { return }
 
+                    print(hitTestResult)
+                        
+                    let nodeToRemove = hitTestResult.node
+                    nodeToRemove.removeFromParentNode()
+                    
+                    
                     // We position our touchNode slighlty above the plane (1cm).
 //                    self.touchNode.simdTransform = hitTestResult.worldTransform
 //                    self.touchNode.position.y += 0.01
 //                    self.touchNode.isHidden = false
+                    
                 }
             }
 
@@ -164,7 +181,7 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
             // Create UIImage from CVPixelBuffer
             previewImage = UIImage(ciImage: CIImage(cvPixelBuffer: outBuffer))
 
-//            normalizedFingerTip = outBuffer.searchTopPoint()
+            normalizedFingerTip = outBuffer.searchTopPoint()
 
         }
     }
@@ -172,9 +189,10 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
 
 extension SCNNode {
     func setFunkyAttributes(with text: SCNText) {
-        self.position = SCNVector3(x: Float.random(in: -1 ... 1),
-                                   y: Float.random(in: -0.5 ... 1),
-                                   z: Float.random(in: -2.0 ... -0.5))
+//        self.position = SCNVector3(x: Float.random(in: -1 ... 1),
+//                                   y: Float.random(in: -0.5 ... 1),
+//                                   z: Float.random(in: -2.0 ... -0.5))
+        self.position = SCNVector3(x: 0, y: 0, z: -1.5)
         self.scale = SCNVector3(x: 0.02, y: 0.01, z: 0.01)
         self.geometry = text
     }
