@@ -31,25 +31,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
         // Set the scene to the view
         for task in allTasks! {
+
             let text = SCNText(string: task, extrusionDepth: 1)
             let material = SCNMaterial()
             material.diffuse.contents = ColourMaker.makeRandomColor()
             text.materials = [material]
             
             let node = SCNNode()
-            
-            node.position = SCNVector3(x: Float.random(in: -1 ... 1), y: Float.random(in: -0.5 ... 1), z: Float.random(in: -2.0 ... -0.5))
-            node.scale = SCNVector3(x: 0.02, y: 0.01, z: 0.01)
-            node.geometry = text
-            
-            let animation = CABasicAnimation(keyPath: "geometry.extrusionDepth")
-            animation.fromValue = 2.0
-            animation.toValue = 8.0
-            animation.duration = 0.5
-            animation.autoreverses = true
-            animation.repeatCount = .infinity
-            node.addAnimation(animation, forKey: "extrude")
-            
+            node.setFunkyAttributes(with: text)
+            node.setFunkyAnimation()
+
             sceneView.scene.rootNode.addChildNode(node)
             sceneView.autoenablesDefaultLighting = true
         }
@@ -87,5 +78,26 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func sessionInterruptionEnded(_ session: ARSession) {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
         
+    }
+}
+
+extension SCNNode {
+    func setFunkyAttributes(with text: SCNText) {
+        self.position = SCNVector3(x: Float.random(in: -1 ... 1),
+                                   y: Float.random(in: -0.5 ... 1),
+                                   z: Float.random(in: -2.0 ... -0.5))
+        self.scale = SCNVector3(x: 0.02, y: 0.01, z: 0.01)
+        self.geometry = text
+    }
+
+
+    func setFunkyAnimation() {
+        let animation = CABasicAnimation(keyPath: "geometry.extrusionDepth")
+        animation.fromValue = 2.0
+        animation.toValue = 8.0
+        animation.duration = 0.5
+        animation.autoreverses = true
+        animation.repeatCount = .infinity
+        self.addAnimation(animation, forKey: "extrude")
     }
 }
