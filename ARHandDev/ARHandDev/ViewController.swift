@@ -7,31 +7,60 @@
 //
 
 import UIKit
-import SpriteKit
+import SceneKit
 import ARKit
 
-class ViewController: UIViewController, ARSKViewDelegate {
+
+  func randomColor() -> UIColor{
+    let red = CGFloat(drand48())
+    let green = CGFloat(drand48())
+    let blue = CGFloat(drand48())
+    return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+  }
+
+class ViewController: UIViewController, ARSCNViewDelegate {
     
-    @IBOutlet var sceneView: ARSKView!
+    @IBOutlet var sceneView: ARSCNView!
+    
     var allTasks: [String]?
     var taskIterator = 0
 
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
         // Some mock tasks
         self.allTasks = ["Tomatoes", "Apples", "Cheese"]
 
-        super.viewDidLoad()
         
         // Set the view's delegate
         sceneView.delegate = self
         
-        // Show statistics such as fps and node count
-        sceneView.showsFPS = true
-        sceneView.showsNodeCount = true
-        
-        // Load the SKScene from 'Scene.sks'
-        if let todoScene = SKScene(fileNamed: "ToDoScene") {
-            sceneView.presentScene(todoScene)
+        // Show statistics such as fps and timing information
+        sceneView.showsStatistics = true
+    
+        // Set the scene to the view
+        for task in allTasks! {
+            let text = SCNText(string: task, extrusionDepth: 1)
+            let material = SCNMaterial()
+            material.diffuse.contents = randomColor()
+            text.materials = [material]
+            
+            let node = SCNNode()
+            
+            node.position = SCNVector3(x: Float.random(in: -1 ... 1), y: Float.random(in: -0.5 ... 1), z: Float.random(in: -2.0 ... -0.5))
+            node.scale = SCNVector3(x: 0.02, y: 0.01, z: 0.01)
+            node.geometry = text
+            
+            let animation = CABasicAnimation(keyPath: "geometry.extrusionDepth")
+            animation.fromValue = 2.0
+            animation.toValue = 8.0
+            animation.duration = 0.5
+            animation.autoreverses = true
+            animation.repeatCount = .infinity
+            node.addAnimation(animation, forKey: "extrude")
+            
+            sceneView.scene.rootNode.addChildNode(node)
+            sceneView.autoenablesDefaultLighting = true
         }
     }
     
@@ -52,26 +81,36 @@ class ViewController: UIViewController, ARSKViewDelegate {
         sceneView.session.pause()
     }
     
-    // MARK: - ARSKViewDelegate
+        // MARK: - ARSCNViewDelegate
+        
+    /*
+        // Override to create and configure nodes for anchors added to the view's session.
+        func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
+            let node = SCNNode()
+         
+            return node
+        }
+    */
     
-    func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
-        // Create and configure a node for the anchor added to the view's session.
-        let labelNode = SKLabelNode(fontNamed: "ChalkboardSE-Bold")
-        labelNode.text = allTasks![taskIterator]
-        labelNode.fontSize = 45
-        labelNode.fontColor = SKColor.green
-        labelNode.horizontalAlignmentMode = .center
-        labelNode.verticalAlignmentMode = .center
-        
-        let rotateAction = SKAction.rotate(toAngle: .pi / 4, duration: 1)
-        let rotateBackAction = SKAction.rotate(toAngle: -(.pi / 4), duration: 1)
-        let repeatRotateForever = SKAction.repeatForever(SKAction.sequence([rotateAction, rotateBackAction]))
-        labelNode.run(repeatRotateForever)
-        
-        taskIterator = taskIterator + 1
-
-        return labelNode
-    }
+//    func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SCNNode? {
+//        // Create and configure a node for the anchor added to the view's session.
+//        let labelNode = SCNText(string: allTasks![taskIterator], extrusionDepth: 1)
+////
+////        labelNode.fontSize = 45
+////        labelNode.fontColor = SKColor.green
+////        labelNode.horizontalAlignmentMode = .center
+////        labelNode.verticalAlignmentMode = .center
+//
+////        let rotateAction = SKAction.rotate(toAngle: .pi / 4, duration: 1)
+////        let rotateBackAction = SKAction.rotate(toAngle: -(.pi / 4), duration: 1)
+////        let repeatRotateForever = SKAction.repeatForever(SKAction.sequence([rotateAction, rotateBackAction]))
+////        labelNode.run(repeatRotateForever)
+//
+//        taskIterator = taskIterator + 1
+//
+//        return labelNode
+//    }
+    
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
