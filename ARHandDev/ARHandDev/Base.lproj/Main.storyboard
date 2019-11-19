@@ -15,16 +15,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VgS-Ie-mmG" userLabel="Scene View">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yc9-Rz-PF8">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </arscnView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="yc9-Rz-PF8" firstAttribute="trailing" secondItem="fQZ-KI-GVf" secondAttribute="trailing" id="9zz-1b-QYV"/>
+                            <constraint firstItem="yc9-Rz-PF8" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="UCg-88-9F0"/>
+                            <constraint firstItem="yc9-Rz-PF8" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="top" id="jgg-3e-zOI"/>
+                            <constraint firstAttribute="bottom" secondItem="yc9-Rz-PF8" secondAttribute="bottom" id="qe1-nv-M7F"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                     </view>
                     <connections>
-                        <outlet property="sceneView" destination="VgS-Ie-mmG" id="et4-9b-mi9"/>
+                        <outlet property="sceneView" destination="yc9-Rz-PF8" id="QRj-dj-xyw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
