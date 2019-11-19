@@ -12,6 +12,7 @@
 		90CEB5FE2382ACAE00249C82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90CEB5FC2382ACAE00249C82 /* Main.storyboard */; };
 		90CEB6002382ACB200249C82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90CEB5FF2382ACB200249C82 /* Assets.xcassets */; };
 		90CEB6032382ACB200249C82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90CEB6012382ACB200249C82 /* LaunchScreen.storyboard */; };
+		EBBC28552383FF6500D3E5E4 /* ColourMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBC28542383FF6500D3E5E4 /* ColourMaker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		90CEB5FF2382ACB200249C82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		90CEB6022382ACB200249C82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		90CEB6042382ACB200249C82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EBBC28542383FF6500D3E5E4 /* ColourMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourMaker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 		90CEB5F32382ACAE00249C82 /* ARHandDev */ = {
 			isa = PBXGroup;
 			children = (
+				EBBC28532383FF2100D3E5E4 /* Utilities */,
 				90CEB5F42382ACAE00249C82 /* AppDelegate.swift */,
 				90CEB5FA2382ACAE00249C82 /* ViewController.swift */,
 				90CEB5FC2382ACAE00249C82 /* Main.storyboard */,
@@ -62,6 +65,14 @@
 				90CEB6042382ACB200249C82 /* Info.plist */,
 			);
 			path = ARHandDev;
+			sourceTree = "<group>";
+		};
+		EBBC28532383FF2100D3E5E4 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				EBBC28542383FF6500D3E5E4 /* ColourMaker.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				90CEB5FB2382ACAE00249C82 /* ViewController.swift in Sources */,
+				EBBC28552383FF6500D3E5E4 /* ColourMaker.swift in Sources */,
 				90CEB5F52382ACAE00249C82 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

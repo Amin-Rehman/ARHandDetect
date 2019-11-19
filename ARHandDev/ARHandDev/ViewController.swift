@@ -10,16 +10,7 @@ import UIKit
 import SceneKit
 import ARKit
 
-
-  func randomColor() -> UIColor{
-    let red = CGFloat(drand48())
-    let green = CGFloat(drand48())
-    let blue = CGFloat(drand48())
-    return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
-  }
-
 class ViewController: UIViewController, ARSCNViewDelegate {
-    
     @IBOutlet var sceneView: ARSCNView!
     
     var allTasks: [String]?
@@ -42,7 +33,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         for task in allTasks! {
             let text = SCNText(string: task, extrusionDepth: 1)
             let material = SCNMaterial()
-            material.diffuse.contents = randomColor()
+            material.diffuse.contents = ColourMaker.makeRandomColor()
             text.materials = [material]
             
             let node = SCNNode()
@@ -82,35 +73,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
         // MARK: - ARSCNViewDelegate
-        
-    /*
-        // Override to create and configure nodes for anchors added to the view's session.
-        func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-            let node = SCNNode()
-         
-            return node
-        }
-    */
-    
-//    func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SCNNode? {
-//        // Create and configure a node for the anchor added to the view's session.
-//        let labelNode = SCNText(string: allTasks![taskIterator], extrusionDepth: 1)
-////
-////        labelNode.fontSize = 45
-////        labelNode.fontColor = SKColor.green
-////        labelNode.horizontalAlignmentMode = .center
-////        labelNode.verticalAlignmentMode = .center
-//
-////        let rotateAction = SKAction.rotate(toAngle: .pi / 4, duration: 1)
-////        let rotateBackAction = SKAction.rotate(toAngle: -(.pi / 4), duration: 1)
-////        let repeatRotateForever = SKAction.repeatForever(SKAction.sequence([rotateAction, rotateBackAction]))
-////        labelNode.run(repeatRotateForever)
-//
-//        taskIterator = taskIterator + 1
-//
-//        return labelNode
-//    }
-    
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
@@ -126,6 +88,4 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Reset tracking and/or remove existing anchors if consistent tracking is required
         
     }
-    
-    
 }
