@@ -42,8 +42,8 @@ struct CoordinateMaker {
                                width: Float = 0,
                                attemptCount: Int = 0) -> Coordinate {
         // Some Limits
-        let minX = Float(-1.5)
-        let maxX = Float(1.5)
+        let minX = Float(-2.5)
+        let maxX = Float(2.5)
         let minY = Float(-0.75)
         let maxY = Float(1.0)
 
