@@ -72,10 +72,7 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
             let node = SCNNode()
 
             // Generate some coordinates and append them to the list held by the view controller
-            let coordinate = CoordinateMaker.makeCoordinate(vicinityCoordinates: self.coordinateList)
-            self.coordinateList.append(coordinate)
-
-            node.setFunkyAttributes(with: text, coordinate: coordinate)
+            self.coordinateList.append(node.setFunkyAttributes(with: text, coordinateList: self.coordinateList))
             node.setFunkyAnimation()
 
             sceneView.scene.rootNode.addChildNode(node)
@@ -194,12 +191,19 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
 
 extension SCNNode {
     func setFunkyAttributes(with text: SCNText,
-                            coordinate: Coordinate) {
+                            coordinateList: [Coordinate]) -> Coordinate {
+        self.geometry = text
+        let geometryWidth = self.geometry!.boundingBox.max.x - self.geometry!.boundingBox.min.x
+
+        let coordinate = CoordinateMaker.makeCoordinate(vicinityCoordinates: coordinateList,
+                                                        width: geometryWidth)
+
         self.position = SCNVector3(x: coordinate.x,
                                    y: coordinate.y,
                                    z: -2.0)
         self.scale = SCNVector3(x: 0.02, y: 0.01, z: 0.01)
-        self.geometry = text
+
+        return coordinate
     }
 
 

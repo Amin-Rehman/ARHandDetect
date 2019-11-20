@@ -11,6 +11,7 @@ import Foundation
 struct Coordinate {
     let x: Float
     let y: Float
+    let width: Float
 
     // Simple Pythagorean Theorem to calculate distance between the two points
     func distanceTo(coordinate: Coordinate) -> Float {
@@ -25,29 +26,38 @@ struct Coordinate {
 
         return sumOfSquares.squareRoot()
     }
+
+    func doesNotIntersectWith(coordinate: Coordinate) -> Bool {
+        let xIntersects = (x + width < coordinate.x) && (coordinate.x + coordinate.width < x)
+        let yIntersects = (pow((coordinate.y - y), 2.0)).squareRoot() > 0.35
+        return !(xIntersects && yIntersects)
+    }
 }
 
 struct CoordinateMaker {
     // Threshold
-    public static let globalDistanceThreshold = Float(0.35)
+    public static let globalDistanceThreshold = Float(0.5)
 
-    static func makeCoordinate(vicinityCoordinates: [Coordinate], attemptCount: Int = 0) -> Coordinate {
+    static func makeCoordinate(vicinityCoordinates: [Coordinate],
+                               width: Float = 0,
+                               attemptCount: Int = 0) -> Coordinate {
         // Some Limits
-        let minX = Float(-1.0)
-        let maxX = Float(1.0)
-        let minY = Float(-0.5)
+        let minX = Float(-1.5)
+        let maxX = Float(1.5)
+        let minY = Float(-0.75)
         let maxY = Float(1.0)
 
         let calculatedX = Float.random(in: minX ... maxX)
         let calculatedY = Float.random(in : minY ... maxY)
-        let calculatedCoordinate = Coordinate(x: calculatedX, y: calculatedY)
+        let calculatedCoordinate = Coordinate(x: calculatedX, y: calculatedY, width: width)
 
         // Iterate through all coorddinates and
         var reEvaluate = false
         for coordinate in vicinityCoordinates {
             let distance  = calculatedCoordinate.distanceTo(coordinate: coordinate)
 
-            if distance > globalDistanceThreshold {
+            if distance > globalDistanceThreshold &&
+                calculatedCoordinate.doesNotIntersectWith(coordinate: coordinate) {
                 continue
             } else {
                 reEvaluate = true
@@ -55,10 +65,12 @@ struct CoordinateMaker {
             }
         }
 
-        if reEvaluate == true || attemptCount < 20 {
-            return makeCoordinate(vicinityCoordinates: vicinityCoordinates, attemptCount: attemptCount + 1)
+        if reEvaluate == true && attemptCount < 20 {
+            return makeCoordinate(vicinityCoordinates: vicinityCoordinates,
+                                  width: width,
+                                  attemptCount: attemptCount + 1)
         } else {
-            return Coordinate(x: calculatedX, y: calculatedY)
+            return calculatedCoordinate
         }
     }
 }
