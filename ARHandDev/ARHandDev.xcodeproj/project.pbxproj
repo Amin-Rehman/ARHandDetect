@@ -10,7 +10,7 @@
 		90B4313E238424EB00FCD5F6 /* HandModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 90B4313D238424EB00FCD5F6 /* HandModel.mlmodel */; };
 		90B431432384250000FCD5F6 /* HandDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B431402384250000FCD5F6 /* HandDetector.swift */; };
 		90B431442384250000FCD5F6 /* CVPixelBuffer+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B431412384250000FCD5F6 /* CVPixelBuffer+Search.swift */; };
-		90B431462384378900FCD5F6 /* TouchNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B431452384378900FCD5F6 /* TouchNode.swift */; };
+		90B431462384378900FCD5F6 /* PlaneNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B431452384378900FCD5F6 /* PlaneNode.swift */; };
 		90CEB5F52382ACAE00249C82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CEB5F42382ACAE00249C82 /* AppDelegate.swift */; };
 		90CEB5FB2382ACAE00249C82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CEB5FA2382ACAE00249C82 /* ViewController.swift */; };
 		90CEB5FE2382ACAE00249C82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90CEB5FC2382ACAE00249C82 /* Main.storyboard */; };
@@ -35,7 +35,7 @@
 		90B4313D238424EB00FCD5F6 /* HandModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = HandModel.mlmodel; sourceTree = "<group>"; };
 		90B431402384250000FCD5F6 /* HandDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandDetector.swift; sourceTree = "<group>"; };
 		90B431412384250000FCD5F6 /* CVPixelBuffer+Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer+Search.swift"; sourceTree = "<group>"; };
-		90B431452384378900FCD5F6 /* TouchNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchNode.swift; sourceTree = "<group>"; };
+		90B431452384378900FCD5F6 /* PlaneNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneNode.swift; sourceTree = "<group>"; };
 		90CEB5F12382ACAE00249C82 /* ARHandDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARHandDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90CEB5F42382ACAE00249C82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		90CEB5FA2382ACAE00249C82 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				90B431412384250000FCD5F6 /* CVPixelBuffer+Search.swift */,
-				90B431452384378900FCD5F6 /* TouchNode.swift */,
+				90B431452384378900FCD5F6 /* PlaneNode.swift */,
 				90B431402384250000FCD5F6 /* HandDetector.swift */,
 				EBBC28542383FF6500D3E5E4 /* ColourMaker.swift */,
 				EBBC28582384281C00D3E5E4 /* CoordinateMaker.swift */,
@@ -237,7 +237,7 @@
 				EBBC28592384281C00D3E5E4 /* CoordinateMaker.swift in Sources */,
 				90B431442384250000FCD5F6 /* CVPixelBuffer+Search.swift in Sources */,
 				90CEB5FB2382ACAE00249C82 /* ViewController.swift in Sources */,
-				90B431462384378900FCD5F6 /* TouchNode.swift in Sources */,
+				90B431462384378900FCD5F6 /* PlaneNode.swift in Sources */,
 				90B4313E238424EB00FCD5F6 /* HandModel.mlmodel in Sources */,
 				EBBC28552383FF6500D3E5E4 /* ColourMaker.swift in Sources */,
 				90B431432384250000FCD5F6 /* HandDetector.swift in Sources */,
@@ -402,7 +402,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 68QQNWZDTF;
+				DEVELOPMENT_TEAM = PG567LPL9M;
 				INFOPLIST_FILE = ARHandDev/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -420,7 +420,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 68QQNWZDTF;
+				DEVELOPMENT_TEAM = PG567LPL9M;
 				INFOPLIST_FILE = ARHandDev/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

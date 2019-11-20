@@ -22,9 +22,9 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
     var taskIterator = 0
     var currentBuffer: CVPixelBuffer?
     var previewView = UIImageView()
-    let touchNode = TouchNode()
-
+    let planeNode = PlaneNode()
     var coordinateList = [Coordinate]()
+
     
     // MARK: - Lifecycle
     override public func loadView() {
@@ -48,6 +48,8 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
 
         // The delegate is used to receive ARAnchors when they are detected.
         sceneView.delegate = self
+        
+        sceneView.debugOptions = [.showPhysicsShapes]
 
         view.addSubview(previewView)
 
@@ -63,25 +65,50 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
     
         // Set the scene to the view
         for task in allTasks! {
-
             let text = SCNText(string: task, extrusionDepth: 1)
             let material = SCNMaterial()
             material.diffuse.contents = ColourMaker.makeRandomColor()
             text.materials = [material]
 
-            let node = SCNNode()
+            let textNode = SCNNode()
 
             // Generate some coordinates and append them to the list held by the view controller
-            self.coordinateList.append(node.setFunkyAttributes(with: text, coordinateList: self.coordinateList))
-            node.setFunkyAnimation()
+            self.coordinateList.append(textNode.setFunkyAttributes(with: text, coordinateList: self.coordinateList))
+            textNode.setFunkyAnimation()
+            
+            print("BOUNDINGBOX")
+            print(textNode.boundingBox)
+            // move pivot point to bottom center instead of top left
+            let min = textNode.boundingBox.min
+            let max = textNode.boundingBox.max
 
-            sceneView.scene.rootNode.addChildNode(node)
+//            textNode.pivot = SCNMatrix4MakeTranslation(
+//                (max.x - min.x)/2,
+//                (max.y - min.y)/2,
+//                (max.z - min.z)/2
+//            )
+            
+            let shape = SCNPhysicsShape(node: textNode, options: nil)
+
+            textNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
+
+            textNode.physicsBody?.mass = 10
+            textNode.physicsBody?.friction = 0
+            
+            // Add planeNode that the text rests on cuz gravity
+            let planeNode = PlaneNode()
+            planeNode.position = textNode.position
+            planeNode.position.y -= 0.1
+            planeNode.position.x -= 0
+
+            // Add planeNode
+            sceneView.scene.rootNode.addChildNode(planeNode)
+            
+            // Add text node
+            sceneView.scene.rootNode.addChildNode(textNode)
             sceneView.autoenablesDefaultLighting = true
         }
 
-
-         // Add touchNode
-         sceneView.scene.rootNode.addChildNode(touchNode)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -143,7 +170,6 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
                     // Release currentBuffer when finished to allow processing next frame
                     self.currentBuffer = nil
 
-                    self.touchNode.isHidden = true
                     
                     guard let tipPoint = normalizedFingerTip else {
                         return
@@ -153,27 +179,19 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
                     // We use a coreVideo function to get the image coordinate from the normalized point
                     let imageFingerPoint = VNImagePointForNormalizedPoint(tipPoint, Int(self.view.bounds.size.width), Int(self.view.bounds.size.height))
                     
-//                    print(" imageFingerPoint x: \(imageFingerPoint.x) y: \(imageFingerPoint.y)")
-                    
-
-                    // And here again we need to hitTest to translate from 2D coordinates to 3D coordinates
-//                    let hitTestResults = self.sceneView.hitTest(imageFingerPoint, types: .existingPlaneUsingExtent)
-//                    guard let hitTestResult = hitTestResults.first else { return }
-
-                    
                     let hitTestResults = self.sceneView.hitTest(imageFingerPoint, options: nil)
                     guard let hitTestResult = hitTestResults.first else { return }
 
-                    print(hitTestResult)
                         
                     let nodeToRemove = hitTestResult.node
-                    nodeToRemove.removeFromParentNode()
+                    print("NODETOREMOVE")
+                    print(nodeToRemove.worldPosition)
+
+                    let force = SCNVector3(x: 0, y: 20, z: -200)
+                    nodeToRemove.physicsBody?.isAffectedByGravity = false
+                    nodeToRemove.physicsBody?.applyForce(force, asImpulse: true)
                     
-                    
-                    // We position our touchNode slighlty above the plane (1cm).
-//                    self.touchNode.simdTransform = hitTestResult.worldTransform
-//                    self.touchNode.position.y += 0.01
-//                    self.touchNode.isHidden = false
+//                    nodeToRemove.removeFromParentNode()
                     
                 }
             }

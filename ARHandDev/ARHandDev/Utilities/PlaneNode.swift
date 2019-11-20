@@ -8,7 +8,7 @@
 
 import SceneKit
 
-public class TouchNode: SCNNode {
+public class PlaneNode: SCNNode {
 
     // MARK: - Lifecycle
 
@@ -24,17 +24,15 @@ public class TouchNode: SCNNode {
 
     private func commonInit() {
         // Touch node configuration
-        let sphere = SCNSphere(radius: 0.01)
-
+        let box = SCNBox(width: 1.5, height: 0.001, length: 1.5, chamferRadius: 0)
         let material = SCNMaterial()
         material.diffuse.contents = UIColor.red
 
-        // Uncomment to see the node for debugging purposes
-        geometry = sphere
-        sphere.firstMaterial = material
+        geometry = box        
+        box.materials = [material]
 
-        let sphereShape = SCNPhysicsShape(geometry: sphere, options: nil)
-
-        physicsBody = SCNPhysicsBody(type: .kinematic, shape: sphereShape)
+        let boxShape = SCNPhysicsShape(geometry: box, options: nil)
+        
+        physicsBody = SCNPhysicsBody(type: .static, shape: boxShape)
     }
 }
