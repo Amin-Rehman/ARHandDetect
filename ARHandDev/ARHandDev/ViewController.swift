@@ -184,16 +184,8 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
                     let hitTestResults = self.sceneView.hitTest(imageFingerPoint, options: nil)
                     guard let hitTestResult = hitTestResults.first else { return }
 
-                        
-                    let nodeToRemove = hitTestResult.node
-                    nodeToRemove.physicsBody?.setResting(false)
-
-                    let force = SCNVector3(x: 0, y: 20, z: -200)
-                    nodeToRemove.physicsBody?.isAffectedByGravity = false
-                    nodeToRemove.physicsBody?.applyForce(force, asImpulse: true)
-                    
-//                    nodeToRemove.removeFromParentNode()
-                    
+                    self.punchText(with: hitTestResult.node)
+                            
                 }
             }
 
@@ -204,6 +196,28 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
             // Create UIImage from CVPixelBuffer
             previewImage = UIImage(ciImage: CIImage(cvPixelBuffer: outBuffer))
             normalizedFingerTip = outBuffer.searchTopPoint()
+        }
+    }
+    
+    func punchText(with node: SCNNode) {
+        let nodeToRemove = node
+        nodeToRemove.physicsBody?.setResting(false)
+        
+        let force = SCNVector3(x: 0, y: 20, z: -200)
+        nodeToRemove.physicsBody?.isAffectedByGravity = false
+        nodeToRemove.physicsBody?.applyForce(force, asImpulse: true)
+        playAudioFromProject()
+    }
+    
+    private func playAudioFromProject() {
+        if let soundURL = Bundle.main.url(forResource: "Completed", withExtension: "caf") {
+//            let player = try! AVAudioPlayer(contentsOf: soundURL)
+//            player.play()
+            print("Playing FILE")
+            var mySound: SystemSoundID = 0
+            AudioServicesCreateSystemSoundID(soundURL as CFURL, &mySound)
+            // Play
+            AudioServicesPlaySystemSound(mySound);
         }
     }
 }

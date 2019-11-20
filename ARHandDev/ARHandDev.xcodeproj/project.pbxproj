@@ -11,6 +11,8 @@
 		90B431432384250000FCD5F6 /* HandDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B431402384250000FCD5F6 /* HandDetector.swift */; };
 		90B431442384250000FCD5F6 /* CVPixelBuffer+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B431412384250000FCD5F6 /* CVPixelBuffer+Search.swift */; };
 		90B431462384378900FCD5F6 /* PlaneNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B431452384378900FCD5F6 /* PlaneNode.swift */; };
+		90B431492385959700FCD5F6 /* punch.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 90B431482385959700FCD5F6 /* punch.mp3 */; };
+		90B4314B23859AAC00FCD5F6 /* Completed.caf in Resources */ = {isa = PBXBuildFile; fileRef = 90B4314A238599A500FCD5F6 /* Completed.caf */; };
 		90CEB5F52382ACAE00249C82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CEB5F42382ACAE00249C82 /* AppDelegate.swift */; };
 		90CEB5FB2382ACAE00249C82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CEB5FA2382ACAE00249C82 /* ViewController.swift */; };
 		90CEB5FE2382ACAE00249C82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90CEB5FC2382ACAE00249C82 /* Main.storyboard */; };
@@ -36,6 +38,8 @@
 		90B431402384250000FCD5F6 /* HandDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandDetector.swift; sourceTree = "<group>"; };
 		90B431412384250000FCD5F6 /* CVPixelBuffer+Search.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CVPixelBuffer+Search.swift"; sourceTree = "<group>"; };
 		90B431452384378900FCD5F6 /* PlaneNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneNode.swift; sourceTree = "<group>"; };
+		90B431482385959700FCD5F6 /* punch.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = punch.mp3; sourceTree = "<group>"; };
+		90B4314A238599A500FCD5F6 /* Completed.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Completed.caf; sourceTree = "<group>"; };
 		90CEB5F12382ACAE00249C82 /* ARHandDev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARHandDev.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		90CEB5F42382ACAE00249C82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		90CEB5FA2382ACAE00249C82 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +81,15 @@
 			path = CoreML;
 			sourceTree = "<group>";
 		};
+		90B431472385957E00FCD5F6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				90B4314A238599A500FCD5F6 /* Completed.caf */,
+				90B431482385959700FCD5F6 /* punch.mp3 */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		90CEB5E82382ACAE00249C82 = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +111,7 @@
 		90CEB5F32382ACAE00249C82 /* ARHandDev */ = {
 			isa = PBXGroup;
 			children = (
+				90B431472385957E00FCD5F6 /* Resources */,
 				90B4313C238424EB00FCD5F6 /* CoreML */,
 				EBBC28532383FF2100D3E5E4 /* Utilities */,
 				90CEB5F42382ACAE00249C82 /* AppDelegate.swift */,
@@ -215,6 +229,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				90CEB6032382ACB200249C82 /* LaunchScreen.storyboard in Resources */,
+				90B431492385959700FCD5F6 /* punch.mp3 in Resources */,
+				90B4314B23859AAC00FCD5F6 /* Completed.caf in Resources */,
 				90CEB6002382ACB200249C82 /* Assets.xcassets in Resources */,
 				90CEB5FE2382ACAE00249C82 /* Main.storyboard in Resources */,
 			);
