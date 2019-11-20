@@ -28,31 +28,37 @@ struct Coordinate {
 }
 
 struct CoordinateMaker {
-    // Some Limits
-    let minX = Float(-1.0)
-    let maxX = Float(1.0)
-    let minY = Float(-0.5)
-    let maxY = Float(1.0)
-
     // Threshold
-    let globalThreshold = Float(0.05)
+    public static let globalDistanceThreshold = Float(0.05)
 
-//    func makeCoordinate(vicinityCoordinates: [Coordinate]) -> Coordinate {
-//        let calculatedX = Float.random(in: minX ... maxX)
-//        let calculatedY = Float.random(in : minY ... maxY)
-//
-//        // Iterate through all coorddinates and
-//        let reEvaluate = false
-//        for let coordinate in vicinityCoordinates {
-//            let vicnityX =
-//
-//
-//        }
-//
-//        if reEvaluate == true {
-//            makeCoordinate(vicinityCoordinates: vicinityCoordinates)
-//        } else {
-//            return Coordinate(x: calculatedX, y: calculatedY)
-//        }
-//    }
+    static func makeCoordinate(vicinityCoordinates: [Coordinate]) -> Coordinate {
+        // Some Limits
+        let minX = Float(-1.0)
+        let maxX = Float(1.0)
+        let minY = Float(-0.5)
+        let maxY = Float(1.0)
+
+        let calculatedX = Float.random(in: minX ... maxX)
+        let calculatedY = Float.random(in : minY ... maxY)
+        let calculatedCoordinate = Coordinate(x: calculatedX, y: calculatedY)
+
+        // Iterate through all coorddinates and
+        var reEvaluate = false
+        for coordinate in vicinityCoordinates {
+            let distance  = calculatedCoordinate.distanceTo(coordinate: coordinate)
+
+            if distance > globalDistanceThreshold {
+                continue
+            } else {
+                reEvaluate = true
+                break
+            }
+        }
+
+        if reEvaluate == true {
+            return makeCoordinate(vicinityCoordinates: vicinityCoordinates)
+        } else {
+            return Coordinate(x: calculatedX, y: calculatedY)
+        }
+    }
 }

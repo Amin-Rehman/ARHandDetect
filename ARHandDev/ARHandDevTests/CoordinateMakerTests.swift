@@ -39,7 +39,25 @@ class CoordinateTests: XCTestCase {
 
 class CoordinateMakerTests: XCTestCase {
 
-    func testExample() {
+    func testMakeCoordinateSimple() {
+        let coordinate1 = Coordinate(x: 0.5, y: 0.5)
+        let coordinate2 = Coordinate(x: 0.65, y: 0.75)
+        let coordinate3 = Coordinate(x: -0.75, y: -0.75)
+
+        let coordinateList = [coordinate1, coordinate2, coordinate3]
+
+        let generatedCoordinates = CoordinateMaker.makeCoordinate(vicinityCoordinates: coordinateList)
+        XCTAssertGreaterThan(generatedCoordinates.distanceTo(coordinate: coordinate1),
+                             CoordinateMaker.globalDistanceThreshold)
+
+        XCTAssertGreaterThan(generatedCoordinates.distanceTo(coordinate: coordinate2),
+                             CoordinateMaker.globalDistanceThreshold)
+
+        XCTAssertGreaterThan(generatedCoordinates.distanceTo(coordinate: coordinate3),
+                             CoordinateMaker.globalDistanceThreshold)
+
+
+
     }
 
 }
