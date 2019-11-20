@@ -29,9 +29,9 @@ struct Coordinate {
 
 struct CoordinateMaker {
     // Threshold
-    public static let globalDistanceThreshold = Float(0.05)
+    public static let globalDistanceThreshold = Float(0.35)
 
-    static func makeCoordinate(vicinityCoordinates: [Coordinate]) -> Coordinate {
+    static func makeCoordinate(vicinityCoordinates: [Coordinate], attemptCount: Int = 0) -> Coordinate {
         // Some Limits
         let minX = Float(-1.0)
         let maxX = Float(1.0)
@@ -55,8 +55,8 @@ struct CoordinateMaker {
             }
         }
 
-        if reEvaluate == true {
-            return makeCoordinate(vicinityCoordinates: vicinityCoordinates)
+        if reEvaluate == true || attemptCount < 20 {
+            return makeCoordinate(vicinityCoordinates: vicinityCoordinates, attemptCount: attemptCount + 1)
         } else {
             return Coordinate(x: calculatedX, y: calculatedY)
         }

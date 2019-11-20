@@ -23,6 +23,8 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
     var currentBuffer: CVPixelBuffer?
     var previewView = UIImageView()
     let touchNode = TouchNode()
+
+    var coordinateList = [Coordinate]()
     
     // MARK: - Lifecycle
     override public func loadView() {
@@ -54,7 +56,7 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
         previewView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
         // Some mock tasks
-        self.allTasks = ["Tomatoes"]
+        self.allTasks = ["Tomatoes", "Apples", "Pears", "Dry Ice", "Rubbish"]
 
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
@@ -66,9 +68,14 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
             let material = SCNMaterial()
             material.diffuse.contents = ColourMaker.makeRandomColor()
             text.materials = [material]
-            
+
             let node = SCNNode()
-            node.setFunkyAttributes(with: text)
+
+            // Generate some coordinates and append them to the list held by the view controller
+            let coordinate = CoordinateMaker.makeCoordinate(vicinityCoordinates: self.coordinateList)
+            self.coordinateList.append(coordinate)
+
+            node.setFunkyAttributes(with: text, coordinate: coordinate)
             node.setFunkyAnimation()
 
             sceneView.scene.rootNode.addChildNode(node)
@@ -186,9 +193,10 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
 }
 
 extension SCNNode {
-    func setFunkyAttributes(with text: SCNText) {
-        self.position = SCNVector3(x: Float.random(in: -1 ... 1),
-                                   y: Float.random(in: -0.5 ... 1),
+    func setFunkyAttributes(with text: SCNText,
+                            coordinate: Coordinate) {
+        self.position = SCNVector3(x: coordinate.x,
+                                   y: coordinate.y,
                                    z: -2.0)
         self.scale = SCNVector3(x: 0.02, y: 0.01, z: 0.01)
         self.geometry = text
