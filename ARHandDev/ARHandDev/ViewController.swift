@@ -180,19 +180,16 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
 
             // Create UIImage from CVPixelBuffer
             previewImage = UIImage(ciImage: CIImage(cvPixelBuffer: outBuffer))
-
             normalizedFingerTip = outBuffer.searchTopPoint()
-
         }
     }
 }
 
 extension SCNNode {
     func setFunkyAttributes(with text: SCNText) {
-//        self.position = SCNVector3(x: Float.random(in: -1 ... 1),
-//                                   y: Float.random(in: -0.5 ... 1),
-//                                   z: Float.random(in: -2.0 ... -0.5))
-        self.position = SCNVector3(x: 0, y: 0, z: -1.5)
+        self.position = SCNVector3(x: Float.random(in: -1 ... 1),
+                                   y: Float.random(in: -0.5 ... 1),
+                                   z: -2.0)
         self.scale = SCNVector3(x: 0.02, y: 0.01, z: 0.01)
         self.geometry = text
     }
