@@ -82,24 +82,26 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
             let min = textNode.boundingBox.min
             let max = textNode.boundingBox.max
 
-//            textNode.pivot = SCNMatrix4MakeTranslation(
-//                (max.x - min.x)/2,
-//                (max.y - min.y)/2,
-//                (max.z - min.z)/2
-//            )
+            textNode.pivot = SCNMatrix4MakeTranslation(
+                (max.x - min.x)/2,
+                (max.y - min.y)/2,
+                (max.z - min.z)/2
+            )
             
             let shape = SCNPhysicsShape(node: textNode, options: nil)
+        
 
             textNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
 
             textNode.physicsBody?.mass = 10
             textNode.physicsBody?.friction = 0
+            textNode.physicsBody?.setResting(true)
             
             // Add planeNode that the text rests on cuz gravity
             let planeNode = PlaneNode()
             planeNode.position = textNode.position
             planeNode.position.y -= 0.1
-            planeNode.position.x -= 0
+            planeNode.position.x -= 0.6
 
             // Add planeNode
             sceneView.scene.rootNode.addChildNode(planeNode)
@@ -184,8 +186,7 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
 
                         
                     let nodeToRemove = hitTestResult.node
-                    print("NODETOREMOVE")
-                    print(nodeToRemove.worldPosition)
+                    nodeToRemove.physicsBody?.setResting(false)
 
                     let force = SCNVector3(x: 0, y: 20, z: -200)
                     nodeToRemove.physicsBody?.isAffectedByGravity = false
