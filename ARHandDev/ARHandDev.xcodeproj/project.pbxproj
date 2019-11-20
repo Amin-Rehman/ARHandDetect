@@ -18,7 +18,7 @@
 		90CEB6032382ACB200249C82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 90CEB6012382ACB200249C82 /* LaunchScreen.storyboard */; };
 		EBBC28552383FF6500D3E5E4 /* ColourMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBC28542383FF6500D3E5E4 /* ColourMaker.swift */; };
 		EBBC28592384281C00D3E5E4 /* CoordinateMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBC28582384281C00D3E5E4 /* CoordinateMaker.swift */; };
-		EBBC28612384295700D3E5E4 /* ARHandDevTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBC28602384295700D3E5E4 /* ARHandDevTests.swift */; };
+		EBBC286A238561C500D3E5E4 /* CoordinateMakerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBC2869238561C500D3E5E4 /* CoordinateMakerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,8 +46,9 @@
 		EBBC28542383FF6500D3E5E4 /* ColourMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourMaker.swift; sourceTree = "<group>"; };
 		EBBC28582384281C00D3E5E4 /* CoordinateMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateMaker.swift; sourceTree = "<group>"; };
 		EBBC285E2384295700D3E5E4 /* ARHandDevTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ARHandDevTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EBBC28602384295700D3E5E4 /* ARHandDevTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARHandDevTests.swift; sourceTree = "<group>"; };
 		EBBC28622384295700D3E5E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EBBC2868238561C400D3E5E4 /* ARHandDevTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ARHandDevTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		EBBC2869238561C500D3E5E4 /* CoordinateMakerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateMakerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,8 +125,9 @@
 		EBBC285F2384295700D3E5E4 /* ARHandDevTests */ = {
 			isa = PBXGroup;
 			children = (
-				EBBC28602384295700D3E5E4 /* ARHandDevTests.swift */,
+				EBBC2869238561C500D3E5E4 /* CoordinateMakerTests.swift */,
 				EBBC28622384295700D3E5E4 /* Info.plist */,
+				EBBC2868238561C400D3E5E4 /* ARHandDevTests-Bridging-Header.h */,
 			);
 			path = ARHandDevTests;
 			sourceTree = "<group>";
@@ -183,6 +185,7 @@
 					};
 					EBBC285D2384295700D3E5E4 = {
 						CreatedOnToolsVersion = 11.1;
+						LastSwiftMigration = 1110;
 						TestTargetID = 90CEB5F02382ACAE00249C82;
 					};
 				};
@@ -246,7 +249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EBBC28612384295700D3E5E4 /* ARHandDevTests.swift in Sources */,
+				EBBC286A238561C500D3E5E4 /* CoordinateMakerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,6 +437,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 68QQNWZDTF;
 				INFOPLIST_FILE = ARHandDevTests/Info.plist;
@@ -445,6 +449,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = yaberwock.ARHandDevTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ARHandDevTests/ARHandDevTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARHandDev.app/ARHandDev";
@@ -455,6 +461,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 68QQNWZDTF;
 				INFOPLIST_FILE = ARHandDevTests/Info.plist;
@@ -466,6 +473,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = yaberwock.ARHandDevTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ARHandDevTests/ARHandDevTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARHandDev.app/ARHandDev";
