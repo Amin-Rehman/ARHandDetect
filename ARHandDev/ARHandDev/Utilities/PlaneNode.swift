@@ -24,9 +24,9 @@ public class PlaneNode: SCNNode {
 
     private func commonInit() {
         // Touch node configuration
-        let box = SCNBox(width: 1.5, height: 0.001, length: 1.5, chamferRadius: 0)
+        let box = SCNBox(width: 1.5, height: 0.001, length: 0.3, chamferRadius: 0)
         let material = SCNMaterial()
-        material.diffuse.contents = UIColor.clear
+        material.diffuse.contents = UIColor.red
 
         geometry = box        
         box.materials = [material]
