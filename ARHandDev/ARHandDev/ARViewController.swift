@@ -13,7 +13,7 @@ import CoreML
 import Vision
 
 
-class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
+class ARViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
     
     @IBOutlet var sceneView: ARSCNView!
     
@@ -181,7 +181,7 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
                     guard let hitTestResult = hitTestResults.first else { return }
 
                     self.punchText(with: hitTestResult.node)
-                            
+
                 }
             }
 
