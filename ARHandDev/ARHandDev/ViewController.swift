@@ -35,6 +35,10 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
 
+        // DEBUGGER STUFF
+        // Show statistics such as fps and timing information
+        // sceneView.showsStatistics = true
+        // sceneView.debugOptions = [.showPhysicsShapes]
 
         sceneView.autoenablesDefaultLighting = true
         // Disabled because of random crash
@@ -48,8 +52,6 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
 
         // The delegate is used to receive ARAnchors when they are detected.
         sceneView.delegate = self
-        
-        sceneView.debugOptions = [.showPhysicsShapes]
 
         view.addSubview(previewView)
 
@@ -59,9 +61,6 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
         
         // Some mock tasks
         self.allTasks = ["Tomatoes", "Apples", "Pears", "Dry Ice", "Rubbish"]
-
-        // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
     
         // Set the scene to the view
         for task in allTasks! {
@@ -76,8 +75,6 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
             self.coordinateList.append(textNode.setFunkyAttributes(with: text, coordinateList: self.coordinateList))
             textNode.setFunkyAnimation()
             
-            print("BOUNDINGBOX")
-            print(textNode.boundingBox)
             // move pivot point to bottom center instead of top left
             let min = textNode.boundingBox.min
             let max = textNode.boundingBox.max
@@ -87,12 +84,12 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
                 (max.y - min.y)/2,
                 (max.z - min.z)/2
             )
-            
+
+            // Set shape of textNode using node shape
             let shape = SCNPhysicsShape(node: textNode, options: nil)
-        
 
+            // Set textNode as a dynamic physics body
             textNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: shape)
-
             textNode.physicsBody?.mass = 10
             textNode.physicsBody?.friction = 0
             textNode.physicsBody?.setResting(true)
@@ -101,12 +98,11 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
             let planeNode = PlaneNode()
             planeNode.position = textNode.position
             planeNode.position.y -= 0.1
-            planeNode.position.x -= 0.6
 
-            // Add planeNode
+            // Add planeNode to scene
             sceneView.scene.rootNode.addChildNode(planeNode)
             
-            // Add text node
+            // Add text node to scene
             sceneView.scene.rootNode.addChildNode(textNode)
             sceneView.autoenablesDefaultLighting = true
         }
@@ -203,7 +199,7 @@ class ViewController: UIViewController, ARSessionDelegate, ARSCNViewDelegate {
         let nodeToRemove = node
         nodeToRemove.physicsBody?.setResting(false)
         
-        let force = SCNVector3(x: 0, y: 20, z: -200)
+        let force = SCNVector3(x: 0, y: 20, z: -100)
         nodeToRemove.physicsBody?.isAffectedByGravity = false
         nodeToRemove.physicsBody?.applyForce(force, asImpulse: true)
         playAudioFromProject()
@@ -233,7 +229,7 @@ extension SCNNode {
 
         self.position = SCNVector3(x: coordinate.x,
                                    y: coordinate.y,
-                                   z: -2.0)
+                                   z: -2.75)
         self.scale = SCNVector3(x: 0.02, y: 0.01, z: 0.01)
 
         return coordinate
