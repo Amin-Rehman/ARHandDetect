@@ -17,3 +17,4 @@ _How can we surprise our users and add whimsy to their experiences by giving the
 - Detect “touch” on a text node usnig CoreML & Vision.
 - Add physics to 3d text when it is influenced by touch.
 
+![Video of dismissing text by touch in AR](ar-to-do.gif)
